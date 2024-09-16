@@ -24,24 +24,32 @@ namespace we
 	}
 	void World::TickInternal(float deltaTime)
 	{
+		// ================================================
+		//         Double Buffer for Actor spawning 
+		// ================================================
 		for (shared<Actor> actor : mPendingActors)
 		{
 			mActors.push_back(actor);
 			actor->BeginPlayInternal();
 		}
 		mPendingActors.clear();
-		for (shared<Actor> actor : mActors)
+		// ================================================
+		//        Iterates mActor for Actors to destroy 
+		// ================================================
+		for (auto it = mActors.begin(); it != mActors.end();)
 		{
-			actor->Tick(deltaTime);
+			if (it->get()->IsPendingDestroy()) { it = mActors.erase(it); }
+			else { it->get()->Tick(deltaTime); ++it; }
 		}
+		
 		Tick(deltaTime);
 	}
 	void World::BeginPlay()
 	{
-		LOG("Begin Play Called");
+		LOG("Begin Play Called")
 	}
 	void World::Tick(float deltaTime)
 	{
-		LOG("Framerate: %f", 1.f / deltaTime);
+		// LOG("Framerate: %f", 1.f / deltaTime)
 	}
 }

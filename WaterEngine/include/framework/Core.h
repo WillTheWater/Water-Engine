@@ -9,7 +9,7 @@ namespace we
 // ================================================
 //           Macro for consol output 
 // ================================================
-#define LOG(M, ...) printf(M "\n", ##__VA_ARGS__)
+#define LOG(M, ...) printf(M "\n", ##__VA_ARGS__);
 
 // ================================================
 //            Alias for smart pointers

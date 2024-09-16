@@ -11,6 +11,7 @@ namespace we
 	}
 	Actor::~Actor()
 	{
+		LOG("Actor Destroyed")
 	}
 	void Actor::BeginPlayInternal()
 	{
@@ -22,10 +23,10 @@ namespace we
 	}
 	void Actor::BeginPlay()
 	{
-		LOG("Actor Begin Play");
+		LOG("Actor Begin Play")
 	}
 	void Actor::Tick(float deltaTime)
 	{
-		LOG("Actor Tick");
+		// LOG("Actor Tick")
 	}
 }
