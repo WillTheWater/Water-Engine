@@ -1,0 +1,46 @@
+# ======================================================================================
+#                               Water Engine Cmake
+# ======================================================================================
+add_library(${WATER_ENGINE_TARGET_NAME} STATIC
+	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/GameApplication.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/GameApplication.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/Core.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Core.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/World.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/World.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/include/EntryPoint.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/EntryPoint.cpp
+
+)
+
+target_include_directories(${WATER_ENGINE_TARGET_NAME} PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}/include/
+)
+
+target_link_libraries(${WATER_ENGINE_TARGET_NAME} PUBLIC sfml-audio)
+target_link_libraries(${WATER_ENGINE_TARGET_NAME} PUBLIC sfml-graphics)
+target_link_libraries(${WATER_ENGINE_TARGET_NAME} PUBLIC sfml-main)
+target_link_libraries(${WATER_ENGINE_TARGET_NAME} PUBLIC sfml-network)
+target_link_libraries(${WATER_ENGINE_TARGET_NAME} PUBLIC sfml-system)
+target_link_libraries(${WATER_ENGINE_TARGET_NAME} PUBLIC sfml-window)
+
+function(CopyLibToTarget LIB_NAME TARGET_NAME) # custom function to repeat post build for each dll
+	# This copies the dll's into the build folder as a post build process
+	add_custom_command(
+	TARGET ${TARGET_NAME}
+	POST_BUILD
+	COMMAND
+	${CMAKE_COMMAND} -E copy_if_different
+	$<TARGET_FILE:${LIB_NAME}>
+	$<TARGET_FILE_DIR:${TARGET_NAME}>
+	)
+endfunction()
+CopyLibToTarget(sfml-audio ${WATER_ENGINE_TARGET_NAME})
+CopyLibToTarget(sfml-graphics ${WATER_ENGINE_TARGET_NAME})
+CopyLibToTarget(sfml-main ${WATER_ENGINE_TARGET_NAME})
+CopyLibToTarget(sfml-network ${WATER_ENGINE_TARGET_NAME})
+CopyLibToTarget(sfml-system ${WATER_ENGINE_TARGET_NAME})
+CopyLibToTarget(sfml-window ${WATER_ENGINE_TARGET_NAME})

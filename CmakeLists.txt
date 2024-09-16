@@ -9,6 +9,20 @@ set(CMAKE_CXX_STANDARD			20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS		OFF)
 
-set(WATER_ENGINE_TEMPLATE_TARGET_NAME GameTemplate) # Variable for a Game Template
+include(FetchContent) # Automatically download SFML library from the GitHub repo
+set(SFML_LIB_NAME SFML)
 
+FetchContent_Declare(
+	${SFML_LIB_NAME}
+	GIT_REPOSITORY https://github.com/SFML/SFML
+	GIT_TAG 2.6.1
+	GIT_SHALLOW FALSE
+)
+
+FetchContent_MakeAvailable(${SFML_LIB_NAME})
+
+set(WATER_ENGINE_TARGET_NAME WaterEngine) # Variable for a Engine
+set(GAME_TEMPLATE_TARGET_NAME GameTemplate) # Variable for a Game Template
+
+add_subdirectory(WaterEngine)
 add_subdirectory(GameTemplate)

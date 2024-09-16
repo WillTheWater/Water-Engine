@@ -1,3 +1,28 @@
-add_executable(${WATER_ENGINE_TEMPLATE_TARGET_NAME}
-	${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+# ======================================================================================
+#                               Game Template Cmake
+# ======================================================================================
+add_executable(${GAME_TEMPLATE_TARGET_NAME}
+	${CMAKE_CURRENT_SOURCE_DIR}/include/gameFramework/Game.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/gameFramework/Game.cpp
 )
+
+target_include_directories(${GAME_TEMPLATE_TARGET_NAME} PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}/include/
+)
+
+target_link_libraries(${GAME_TEMPLATE_TARGET_NAME} PUBLIC 
+${WATER_ENGINE_TARGET_NAME})
+
+function(CopyLibDirToTarget LIB_NAME TARGET_NAME) # custom function to repeat post build for each dll
+	# This copies the dll's into the build folder as a post build process
+	add_custom_command(
+	TARGET ${TARGET_NAME}
+	POST_BUILD
+	COMMAND
+	${CMAKE_COMMAND} -E copy_directory
+	$<TARGET_FILE_DIR:${LIB_NAME}>
+	$<TARGET_FILE_DIR:${TARGET_NAME}>
+	)
+endfunction()
+CopyLibDirToTarget(${WATER_ENGINE_TARGET_NAME} ${GAME_TEMPLATE_TARGET_NAME})
+
