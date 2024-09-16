@@ -1,11 +1,14 @@
 #include "framework/World.h"
 #include "framework/Core.h"
+#include "framework/Actor.h"
 
 namespace we
 {
 	World::World(GameApplication* owingGameApp)
 		: mOwningGameApp{owingGameApp}
 		, mBeganPlay{false}
+		, mActors{}
+		, mPendingActors{}
 	{
 	}
 	World::~World()
@@ -21,6 +24,16 @@ namespace we
 	}
 	void World::TickInternal(float deltaTime)
 	{
+		for (shared<Actor> actor : mPendingActors)
+		{
+			mActors.push_back(actor);
+			actor->BeginPlayInternal();
+		}
+		mPendingActors.clear();
+		for (shared<Actor> actor : mActors)
+		{
+			actor->Tick(deltaTime);
+		}
 		Tick(deltaTime);
 	}
 	void World::BeginPlay()

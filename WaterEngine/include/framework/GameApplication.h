@@ -27,7 +27,7 @@ namespace we
 		shared<World>				mCurrentWorld;
 	};
 	template<typename WorldType>
-	weak<WorldType> GameApplication::LoadWorld()
+	inline weak<WorldType> GameApplication::LoadWorld()
 	{
 		shared<WorldType> newWorld{ new WorldType{this} };
 		mCurrentWorld = newWorld;
