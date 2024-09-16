@@ -9,22 +9,24 @@ namespace we
 	class GameApplication
 	{
 	public:
-		GameApplication();
+		GameApplication(unsigned int windowWidth, unsigned int windowHeight
+			, const std::string& windowTitle
+			, sf::Uint32 windowStyle);
 
-		void						Run();
+		void							Run();
 
 		template<typename WorldType>
-		weak<WorldType> LoadWorld();
+		weak<WorldType>					LoadWorld();
 
 	private:
-		void						TickInternal(float deltaTime);
-		virtual void				Tick(float deltaTime);
-		void						RenderInternal();
-		virtual void				Render();
-		sf::RenderWindow			mWindow;
-		float						mTargetFrameRate;
-		sf::Clock					mClock;
-		shared<World>				mCurrentWorld;
+		void							TickInternal(float deltaTime);
+		virtual void					Tick(float deltaTime);
+		void							RenderInternal();
+		virtual void					Render();
+		sf::RenderWindow				mWindow;
+		float							mTargetFrameRate;
+		sf::Clock						mClock;
+		shared<World>					mCurrentWorld;
 	};
 	template<typename WorldType>
 	inline weak<WorldType> GameApplication::LoadWorld()

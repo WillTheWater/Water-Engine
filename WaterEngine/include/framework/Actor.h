@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include "framework/Core.h"
 #include "framework/Object.h"
 
 namespace we
@@ -7,7 +9,7 @@ namespace we
 	class Actor : public Object
 	{
 	public:
-		Actor(World* owningWorld);
+		Actor(World* owningWorld, const std::string& texturePath = "");
 		virtual ~Actor();
 
 		void							BeginPlayInternal();
@@ -17,5 +19,7 @@ namespace we
 	private:
 		World*							mOwningWorld;
 		bool							mBeganPlay;
+		sf::Texture						mTexture;
+		sf::Sprite						mSprite;
 	};
 }

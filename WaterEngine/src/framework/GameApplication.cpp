@@ -3,11 +3,11 @@
 
 namespace we
 {
-	GameApplication::GameApplication()
-		: mWindow{ sf::VideoMode(1920, 1080), "Test", sf::Style::Close }
+	GameApplication::GameApplication(unsigned int windowWidth, unsigned int windowHeight, const std::string& windowTitle, sf::Uint32 windowStyle)
+		: mWindow{ sf::VideoMode(windowWidth, windowHeight), windowTitle, windowStyle }
 		, mTargetFrameRate{ 60.f }
 		, mClock{}
-		, mCurrentWorld{nullptr}
+		, mCurrentWorld{ nullptr }
 	{
 	}
 	void GameApplication::Run()

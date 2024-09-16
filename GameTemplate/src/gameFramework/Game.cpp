@@ -7,6 +7,7 @@ we::GameApplication* GetGameApplication() { return new we::Game(); }
 namespace we
 {
 	Game::Game()
+		: GameApplication{ 1920,1080, "Game Template", sf::Style::Titlebar | sf::Style::Close }
 	{
 		weak<World> newWorld = LoadWorld<World>();
 		newWorld.lock()->SpawnActor<Actor>();

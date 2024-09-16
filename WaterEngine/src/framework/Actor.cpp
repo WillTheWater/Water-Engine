@@ -4,10 +4,13 @@
 
 namespace we
 {
-	Actor::Actor(World* owningWorld)
+	Actor::Actor(World* owningWorld, const std::string& texturePath)
 		: mOwningWorld{owningWorld}
 		, mBeganPlay{false}
+		, mTexture{}
+		, mSprite{}
 	{
+
 	}
 	Actor::~Actor()
 	{
