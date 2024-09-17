@@ -22,7 +22,7 @@ namespace we
 	private:
 		World*							mOwningWorld;
 		bool							mBeganPlay;
-		sf::Texture						mTexture;
+		shared<sf::Texture>				mTexture;
 		sf::Sprite						mSprite;
 	};
 }
