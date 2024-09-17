@@ -26,6 +26,8 @@ namespace we
 		sf::RenderWindow				mWindow;
 		float							mTargetFrameRate;
 		sf::Clock						mClock;
+		sf::Clock						mCleanCycleClock;
+		float							mCleanCycleInterval;
 		shared<World>					mCurrentWorld;
 	};
 	template<typename WorldType>

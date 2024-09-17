@@ -1,5 +1,6 @@
 #include "framework/GameApplication.h"
 #include "framework/Core.h"
+#include "framework/AssetManager.h"
 
 namespace we
 {
@@ -8,6 +9,8 @@ namespace we
 		, mTargetFrameRate{ 60.f }
 		, mClock{}
 		, mCurrentWorld{ nullptr }
+		, mCleanCycleClock{}
+		, mCleanCycleInterval{2.f}
 	{
 	}
 	void GameApplication::Run()
@@ -38,6 +41,12 @@ namespace we
 		if (mCurrentWorld)
 		{
 			mCurrentWorld->TickInternal(deltaTime);
+		}
+		if (mCleanCycleClock.getElapsedTime().asSeconds() >= mCleanCycleInterval)
+		{
+			mCleanCycleClock.restart();
+			AssetManager::GetAssetManager().CleanCycle();
+
 		}
 	}
 	void GameApplication::Tick(float deltaTime)

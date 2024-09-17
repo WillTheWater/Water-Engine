@@ -31,4 +31,18 @@ namespace we
 		}
 		return shared<sf::Texture> {nullptr};
 	}
+	void AssetManager::CleanCycle()
+	{
+		for (auto it = mLoadedTextureMap.begin(); it != mLoadedTextureMap.end();)
+		{
+			if (it->second && it->second.use_count() == 1)
+			{
+				it = mLoadedTextureMap.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+	}
 }
