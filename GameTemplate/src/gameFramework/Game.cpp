@@ -14,12 +14,14 @@ namespace we
 		newWorld.lock()->SpawnActor<Actor>();
 		mTestActor = newWorld.lock()->SpawnActor<Actor>();
 		mTestActor.lock()->SetTexture( GetResourceDir() + "graphics/idle/Unarmed_Idle_full.png");
+		mTestActor.lock()->SetActorPosition(sf::Vector2f{ 1920 / 2.f, 1080 / 2.f });
+		mTestActor.lock()->SetActorRotation(45.f);
 		mCount = 0.f;
 	}
 	void Game::Tick(float deltaTime)
 	{
 		mCount += deltaTime;
-		if (mCount > 10.f)
+		if (mCount > 3.f)
 		{
 			if (!mTestActor.expired())
 			{
