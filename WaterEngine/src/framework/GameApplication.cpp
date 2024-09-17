@@ -51,5 +51,9 @@ namespace we
 	}
 	void GameApplication::Render()
 	{
+		if (mCurrentWorld)
+		{
+			mCurrentWorld->Render(mWindow);
+		}
 	}
 }

@@ -10,7 +10,7 @@ namespace we
 		, mTexture{}
 		, mSprite{}
 	{
-
+		SetTexture(texturePath);
 	}
 	Actor::~Actor()
 	{
@@ -24,6 +24,13 @@ namespace we
 			BeginPlay();
 		}
 	}
+	void Actor::TickInternal(float deltaTime)
+	{
+		if (!IsPendingDestroy())
+		{
+			Tick(deltaTime);
+		}
+	}
 	void Actor::BeginPlay()
 	{
 		LOG("Actor Begin Play")
@@ -31,5 +38,18 @@ namespace we
 	void Actor::Tick(float deltaTime)
 	{
 		// LOG("Actor Tick")
+	}
+	void Actor::SetTexture(const std::string& texturePath)
+	{
+		mTexture.loadFromFile(texturePath);
+		mSprite.setTexture(mTexture);
+		int textureWidth = mTexture.getSize().x;
+		int textureHeight = mTexture.getSize().y;
+		mSprite.setTextureRect(sf::IntRect(sf::Vector2i{}, sf::Vector2i{ textureWidth , textureHeight}));
+	}
+	void Actor::Render(sf::RenderWindow& window)
+	{
+		if (IsPendingDestroy()) { return; }
+		window.draw(mSprite);
 	}
 }

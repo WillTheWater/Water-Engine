@@ -39,10 +39,17 @@ namespace we
 		for (auto it = mActors.begin(); it != mActors.end();)
 		{
 			if (it->get()->IsPendingDestroy()) { it = mActors.erase(it); }
-			else { it->get()->Tick(deltaTime); ++it; }
+			else { it->get()->TickInternal(deltaTime); ++it; }
 		}
 		
 		Tick(deltaTime);
+	}
+	void World::Render(sf::RenderWindow& window)
+	{
+		for (auto& actor : mActors)
+		{
+			actor->Render(window);
+		}
 	}
 	void World::BeginPlay()
 	{

@@ -1,6 +1,7 @@
 #include "gameFramework/Game.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
+#include "config.h"
 
 we::GameApplication* GetGameApplication() { return new we::Game(); }
 
@@ -12,12 +13,13 @@ namespace we
 		weak<World> newWorld = LoadWorld<World>();
 		newWorld.lock()->SpawnActor<Actor>();
 		mTestActor = newWorld.lock()->SpawnActor<Actor>();
+		mTestActor.lock()->SetTexture( GetResourceDir() + "graphics/idle/Unarmed_Idle_full.png");
 		mCount = 0.f;
 	}
 	void Game::Tick(float deltaTime)
 	{
 		mCount += deltaTime;
-		if (mCount > 2.f)
+		if (mCount > 10.f)
 		{
 			if (!mTestActor.expired())
 			{
